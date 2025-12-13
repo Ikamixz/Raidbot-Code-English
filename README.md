@@ -1,4 +1,4 @@
-# RaidBot
+# RaidBot English
 
 **General Information**
 
