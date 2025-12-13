@@ -1,6 +1,6 @@
 # RaidBot
 
-*General Information**
+**General Information**
 
 RaidBot is a Discord bot developed in Python using the discord.py library (https://github.com/Rapptz/discord.py). Its purpose is to automate administration and testing tasks on Discord servers, offering commands that allow for everything from basic management (latency, roles, channels) to advanced functions such as channel cleanup, resetting, and sending bulk messages.
 
