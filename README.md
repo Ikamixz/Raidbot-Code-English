@@ -1,70 +1,95 @@
-# RaidBot English Predefined
+# RaidBot
 
-## Discord Server : https://discord.gg/b2DGCmzqcJ
+**Información General**
 
-### Commands:
+RaidBot es un bot de Discord desarrollado en **Python** utilizando la librería [discord.py](https://github.com/Rapptz/discord.py).  
+Su objetivo es automatizar tareas de administración y pruebas en servidores de Discord, ofreciendo comandos que permiten desde gestión básica (latencia, roles, canales) hasta funciones avanzadas como limpieza, reinicio de canales y envío de mensajes masivos.
 
-1. **Clear All**
+Este proyecto está pensado con fines **educativos y experimentales**, mostrando cómo se pueden construir comandos personalizados, manejar permisos y trabajar con eventos en Discord.
 
-- Deletes all messages from a single channel.
+---
 
-2. **Reset Channel**
+⚙️ **Requisitos**
 
-- Resets a channel, deleting all messages sent within it but preserving role settings and the channel name.
+- Python 3.9 o superior
+- Windows
 
-3. **Reset Server**
+Instálalas con:
+```PowerShell
+pip install -U discord.py
+pip install aiohttp
+```
+## Explicación de los comandos de RaidBot
 
-- Resets ALL channels on the server, deleting all messages sent within them but preserving role settings and the channel name.
+RaidBot incluye una serie de comandos diseñados para interactuar con servidores de Discord. Cada uno cumple una función específica:
 
-4. **Spam**
+- **`$hlp`**  
+  Muestra un panel de ayuda con la lista completa de comandos disponibles y sus descripciones.
 
-- Spams all channels.
+- **`$ping`**  
+  Devuelve la latencia del bot en milisegundos, útil para comprobar si está respondiendo correctamente.
 
-5. **Raid**
+- **`$spam`**  
+  Envía un número elevado de mensajes repetidos en todos los canales de texto del servidor.
 
-- Creates a custom number of channels.
+- **`$raid`**  
+  Crea múltiples canales de texto con un nombre base. La cantidad se puede personalizar.
 
-6. **Nuke**
+- **`$nuke`**  
+  Elimina todos los canales del servidor de manera inmediata.
 
-- Deletes all channels on the server.
+- **`$cn`**  
+  Cambia el nombre del servidor por uno nuevo definido en el código.
 
-7. **CN**
+- **`$cr (cantidad)`**  
+  Crea una cantidad determinada de roles en el servidor, con nombres secuenciales.
 
-- Creates a new server name.
+- **`$ci`**  
+  Cambia el ícono del servidor por una imagen que tengas en la misma carpeta del bot.
 
-8. **CR**
+- **`$ret`**  
+  Borra todos los canales existentes y luego crea nuevos canales con spam masivo en cada uno.
 
-- Creates a number of roles on the server.
+- **`$bn`**  
+  Banea a todos los miembros del servidor, excepto al autor del comando, al dueño y al propio bot.
 
-9. **CI <Attach an image>**
+- **`$dr`**  
+  Elimina todos los roles del servidor, excepto los protegidos (como el rol por defecto, el dueño y el bot).
 
-- Creates a new server picture.
+- **`$ks (ID de servidor)`**  
+  Programa la ejecución automática de varios comandos cuando el bot se une a un servidor específico.
 
-10. **Ret**
+- **`$vs (ID de servidor)`**  
+  Ejecuta un conjunto de comandos de raid en un servidor remoto, solo si el bot está dentro.
 
-- Raises the server by creating an absurd number of channels with custom spam names and messages.
+- **`$da (ID de usuario) (ID de servidor)`**  
+  Crea un rol con permisos de administrador y lo asigna a un usuario específico en el servidor indicado.
 
-11. **BN**
+- **`$md`**  
+  Envía mensajes directos (DM) a todos los miembros del servidor con un embed predefinido.
 
-- Bans all server members except bots with admin privileges.
+- **`$cleanbot (ID de bot)`**  
+  Borra mensajes enviados por un bot específico en todos los canales de texto del servidor.
 
-12. **DR**
+- **`$cleanraid (prefijo)`**  
+  Elimina todos los canales cuyo nombre comience con un prefijo determinado, útil para limpiar canales creados en raids.
 
-- Deletes all server roles except those with admin privileges.
+- **`$resetcanal`**  
+  Elimina el canal actual y lo recrea vacío, conservando el mismo nombre y categoría.
 
-13. **HLP**
+- **`$clear`**  
+  Borra todos los mensajes del canal actual.
 
-- Displays this command help panel, the one you're seeing right now.
+---
 
-14. **Ping**
+RaidBot no solo reúne comandos clásicos de administración y raid.  
+Gracias a funciones como `$ks` y `$vs`, el bot puede **Activar automáticamente varios comandos al entrar en un servidor** o **ejecutarlos de forma remota** sin necesidad de intervención directa.  
 
-- Displays the bot's latency.
+Esto demuestra cómo un bot puede coordinar múltiples acciones simultáneamente y aprovechar la concurrencia de Python (`asyncio`) para ejecutar cientos de tareas al mismo tiempo sin bloquearse.
 
-15. **KS**
+---
 
-- Program 4 commands that will be executed as soon as you put the bot on the server, you must remember that you have to put the $ks command on a server where the bot is so that it works and then put the bot on the server that you will raid.
+**Nota importante**:  
+Estos comandos son potentes y modifican directamente la estructura del servidor. Se recomienda usarlos únicamente en entornos de prueba o con fines educativos, ya que pueden alterar de forma drástica un servidor real.
 
-## Creator :
-**Zydrex**
-
-<img width="720" height="514" alt="Captura de pantalla 2025-10-26 113854" src="https://github.com/user-attachments/assets/713df906-b024-4221-980d-077ac1a87063" />
+Discord Server : https://discord.gg/3NwMRyScs4
