@@ -1,95 +1,93 @@
 # RaidBot
 
-**Información General**
+*General Information**
 
-RaidBot es un bot de Discord desarrollado en **Python** utilizando la librería [discord.py](https://github.com/Rapptz/discord.py).  
-Su objetivo es automatizar tareas de administración y pruebas en servidores de Discord, ofreciendo comandos que permiten desde gestión básica (latencia, roles, canales) hasta funciones avanzadas como limpieza, reinicio de canales y envío de mensajes masivos.
+RaidBot is a Discord bot developed in Python using the discord.py library (https://github.com/Rapptz/discord.py). Its purpose is to automate administration and testing tasks on Discord servers, offering commands that allow for everything from basic management (latency, roles, channels) to advanced functions such as channel cleanup, resetting, and sending bulk messages.
 
-Este proyecto está pensado con fines **educativos y experimentales**, mostrando cómo se pueden construir comandos personalizados, manejar permisos y trabajar con eventos en Discord.
+This project is intended for **educational and experimental** purposes, showing how to build custom commands, manage permissions, and work with events in Discord.
 
 ---
 
-⚙️ **Requisitos**
+**Requirements**
 
-- Python 3.9 o superior
+- Python 3.9 or higher
 - Windows
 
-Instálalas con:
-```PowerShell
-pip install -U discord.py
-pip install aiohttp
+Install them with:
+```Setup.Py
 ```
-## Explicación de los comandos de RaidBot
+## RaidBot Commands Explanation
 
-RaidBot incluye una serie de comandos diseñados para interactuar con servidores de Discord. Cada uno cumple una función específica:
+RaidBot includes a series of commands designed to interact with Discord servers. Each one serves a specific function:
 
 - **`$hlp`**  
-  Muestra un panel de ayuda con la lista completa de comandos disponibles y sus descripciones.
+  Displays a help panel with the complete list of available commands and their descriptions.
 
 - **`$ping`**  
-  Devuelve la latencia del bot en milisegundos, útil para comprobar si está respondiendo correctamente.
+  Returns the bot's latency in milliseconds, useful for checking if it is responding correctly.
 
 - **`$spam`**  
-  Envía un número elevado de mensajes repetidos en todos los canales de texto del servidor.
+  It sends a large number of repeated messages across all text channels on the server.
 
 - **`$raid`**  
-  Crea múltiples canales de texto con un nombre base. La cantidad se puede personalizar.
+  Create multiple text channels with a base name..
 
 - **`$nuke`**  
-  Elimina todos los canales del servidor de manera inmediata.
+  Remove all channels from the server immediately.
 
-- **`$cn`**  
-  Cambia el nombre del servidor por uno nuevo definido en el código.
+- **`$cn`**
+  Change the server name to a new one defined in the code.
 
-- **`$cr (cantidad)`**  
-  Crea una cantidad determinada de roles en el servidor, con nombres secuenciales.
+- **`$cr (cantity)`**  
+  Create a specified number of roles on the server, with sequential names.
 
-- **`$ci`**  
-  Cambia el ícono del servidor por una imagen que tengas en la misma carpeta del bot.
+- **`$ci`** 
+Change the server icon to an image located in the same folder as the bot.
 
-- **`$ret`**  
-  Borra todos los canales existentes y luego crea nuevos canales con spam masivo en cada uno.
+- **`$ret`** 
+Delete all existing channels and then create new channels with mass spam in each.
 
-- **`$bn`**  
-  Banea a todos los miembros del servidor, excepto al autor del comando, al dueño y al propio bot.
+- **`$bn`** 
+Ban all members of the server, except the command author, the owner, and the bot itself.
 
-- **`$dr`**  
-  Elimina todos los roles del servidor, excepto los protegidos (como el rol por defecto, el dueño y el bot).
+- **`$dr`** 
+Remove all server roles, except protected ones (such as the default role, the owner, and the bot).
 
-- **`$ks (ID de servidor)`**  
-  Programa la ejecución automática de varios comandos cuando el bot se une a un servidor específico.
+- **`$ks (Server ID)`** 
+Schedule the automatic execution of several commands when the bot joins a specific server.
 
-- **`$vs (ID de servidor)`**  
-  Ejecuta un conjunto de comandos de raid en un servidor remoto, solo si el bot está dentro.
+- **`$vs (Server ID)`** 
+Execute a set of raid commands on a remote server, only if the bot is present.
 
-- **`$da (ID de usuario) (ID de servidor)`**  
-  Crea un rol con permisos de administrador y lo asigna a un usuario específico en el servidor indicado.
+- **`$da (User ID) (Server ID)`** 
+Create a role with administrator privileges and assign it to a specific user on the specified server.
 
-- **`$md`**  
-  Envía mensajes directos (DM) a todos los miembros del servidor con un embed predefinido.
+- **`$md`** 
+Sends direct messages (DMs) to all server members with a predefined embed code.
 
-- **`$cleanbot (ID de bot)`**  
-  Borra mensajes enviados por un bot específico en todos los canales de texto del servidor.
+- **`$cleanbot (bot ID)`** 
+Deletes messages sent by a specific bot in all server text channels.
+- **`$cleanbot (bot ID)`** 
+Deletes messages sent by a specific bot in all text channels on the server.
 
-- **`$cleanraid (prefijo)`**  
-  Elimina todos los canales cuyo nombre comience con un prefijo determinado, útil para limpiar canales creados en raids.
+- **`$cleanraid (prefix)`** 
+Deletes all channels whose name begins with a given prefix, useful for cleaning up channels created in raids.
 
-- **`$resetcanal`**  
-  Elimina el canal actual y lo recrea vacío, conservando el mismo nombre y categoría.
+- **`$resetchannel`** 
+Deletes the current channel and recreates it empty, keeping the same name and category.
 
-- **`$clear`**  
-  Borra todos los mensajes del canal actual.
-
----
-
-RaidBot no solo reúne comandos clásicos de administración y raid.  
-Gracias a funciones como `$ks` y `$vs`, el bot puede **Activar automáticamente varios comandos al entrar en un servidor** o **ejecutarlos de forma remota** sin necesidad de intervención directa.  
-
-Esto demuestra cómo un bot puede coordinar múltiples acciones simultáneamente y aprovechar la concurrencia de Python (`asyncio`) para ejecutar cientos de tareas al mismo tiempo sin bloquearse.
+- **`$clear`** 
+Deletes all messages in the current channel.
 
 ---
 
-**Nota importante**:  
-Estos comandos son potentes y modifican directamente la estructura del servidor. Se recomienda usarlos únicamente en entornos de prueba o con fines educativos, ya que pueden alterar de forma drástica un servidor real.
+RaidBot not only includes classic administration and raid commands.
+Thanks to functions like `$ks` and `$vs`, the bot can **automatically trigger various commands upon entering a server** or **execute them remotely** without direct intervention.
+
+This demonstrates how a bot can coordinate multiple actions simultaneously and leverage Python's concurrency (`asyncio`) to execute hundreds of tasks at the same time without crashing.
+---
+
+**Important Note**:
+These commands are powerful and directly modify the server structure. It is recommended to use them only in test environments or for educational purposes, as they can drastically alter a live server.
 
 Discord Server : https://discord.gg/3NwMRyScs4
