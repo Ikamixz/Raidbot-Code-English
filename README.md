@@ -96,4 +96,4 @@ This demonstrates how a bot can coordinate multiple actions simultaneously and l
 **Important Note**:
 These commands are powerful and directly modify the server structure. It is recommended to use them only in test environments or for educational purposes, as they can drastically alter a live server.
 
-Discord Server : https://discord.gg/3NwMRyScs4
+Discord Server : https://discord.gg/fFUU5HacTN
