@@ -50,6 +50,12 @@ Delete all existing channels and then create new channels with mass spam in each
 - **`$bn`** 
 Ban all members of the server, except the command author, the owner, and the bot itself.
 
+- **`$db (USER ID)`** 
+Unban a user using their ID.
+
+- **`$sv`** 
+It displays a list of servers where the bot is located.
+
 - **`$dr`** 
 Remove all server roles, except protected ones (such as the default role, the owner, and the bot).
 
